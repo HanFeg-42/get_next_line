@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:37 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/23 11:42:43 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/23 13:35:59 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+# define BUFFER_SIZE 42
 
 char *get_next_line(int fd);
 
