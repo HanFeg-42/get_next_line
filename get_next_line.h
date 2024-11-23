@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:37 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/23 13:35:59 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/23 14:50:01 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define BUFFER_SIZE 42
 
-char *get_next_line(int fd);
+char    *get_next_line(int fd);
+char	*ft_strchr(const char *s, int c);
 
 #endif
