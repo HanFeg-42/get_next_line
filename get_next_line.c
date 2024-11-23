@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/23 21:53:59 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/23 22:41:32 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int main()
     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
     if (fd == -1)
         return 2;
+    printf("%s\n", get_next_line(fd));
+    printf("%s\n", get_next_line(fd));
     printf("%s\n", get_next_line(fd));
     printf("%s\n", get_next_line(fd));
     return (0);
