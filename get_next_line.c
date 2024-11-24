@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/24 12:03:05 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:09:53 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,33 @@
 
 char    *get_next_line(int fd)
 {
+    static char *s;
+    char *buff;
+    char *line;
+    char *tmp;
     
+    if (fd < 0)
+    {
+        buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+        read(fd, buff, BUFFER_SIZE);
+        str = ft_strdup(buff);
+        while (1)
+        {
+            if (is_line(buff))
+            {
+                line = read_line(buff);
+                break;
+            }
+            else
+            {
+                read(fd, buff, BUFFER_SIZE);
+                line = ft_strjoin()
+            }
+        }
+    }
 }
+
+
 
 
 
