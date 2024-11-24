@@ -6,17 +6,92 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/24 10:49:01 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/24 12:03:05 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *ft_read(int fd, char *s)
+char    *get_next_line(int fd)
 {
-    read(fd, s, 5);
-    return s;
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// char *ft_read(int fd, char *s)
+// {
+//     read(fd, s, 5);
+//     return s;
+// }
 
 char *read_line(char *s)
 {
@@ -39,10 +114,10 @@ char *read_line(char *s)
     return (ret);
 }
 
-void    ft_clean(char *s, int n)
-{
-    return;
-}
+// void    ft_clean(char *s, int n)
+// {
+//     return;
+// }
 
 char *get_next_line(int fd)
 {
@@ -56,8 +131,7 @@ char *get_next_line(int fd)
         str = malloc(BUFFER_SIZE + 1);
     if(!str)
         return (NULL);
-    if (read(fd, str, BUFFER_SIZE) != -1)
-        //printf("%s\n", str);
+    read(fd, str, BUFFER_SIZE);
     line = read_line(str);
     tmp = ft_strdup(ft_strchr(str, '\n') + 1);
     free(str);
@@ -70,10 +144,12 @@ int main()
     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
     if (fd == -1)
         return 2;
-    printf("%s", get_next_line(fd));
-    printf("%s", get_next_line(fd));
-    printf("%s", get_next_line(fd));
-    printf("%s", get_next_line(fd));
+    int i = 0;
+    while (i < 5)
+    {
+        printf("%s", get_next_line(fd));
+        i++;
+    }
     return (0);
 }
 
