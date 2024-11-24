@@ -6,11 +6,17 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/23 22:41:32 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/24 10:49:01 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char *ft_read(int fd, char *s)
+{
+    read(fd, s, 5);
+    return s;
+}
 
 char *read_line(char *s)
 {
@@ -42,32 +48,47 @@ char *get_next_line(int fd)
 {
     static char *str;
     char *line;
+    char *tmp;
     
     if (fd == -1)
         return NULL;
     if (!str)
-    str = malloc(BUFFER_SIZE + 1);
+        str = malloc(BUFFER_SIZE + 1);
     if(!str)
-    return (NULL);
+        return (NULL);
     if (read(fd, str, BUFFER_SIZE) != -1)
         //printf("%s\n", str);
     line = read_line(str);
-    str = ft_strchr(str, '\n') + 1;
-    ft_clean(str, ft_strlen(line));
+    tmp = ft_strdup(ft_strchr(str, '\n') + 1);
+    free(str);
+    str = ft_strdup(tmp);
     return line;
 }
-
+/*---------------------------MAIN--------------------------------*/
 int main()
 {
     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
     if (fd == -1)
         return 2;
-    printf("%s\n", get_next_line(fd));
-    printf("%s\n", get_next_line(fd));
-    printf("%s\n", get_next_line(fd));
-    printf("%s\n", get_next_line(fd));
+    printf("%s", get_next_line(fd));
+    printf("%s", get_next_line(fd));
+    printf("%s", get_next_line(fd));
+    printf("%s", get_next_line(fd));
     return (0);
 }
+
+// int main()
+// {
+//     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
+//     if (fd == -1)
+//         return 2;
+//     char *s = calloc(10, sizeof(char));
+//     //s = "hello cv kolchi mzyan";
+//     printf("%s\n",ft_read(fd, s));
+//     printf("%s\n",ft_read(fd, s));
+//     printf("%s\n",ft_read(fd, s));
+//     printf("%s\n",ft_read(fd, s));
+// }
 
 // int main()
 // {
