@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/24 21:09:30 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/25 10:33:59 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ char *read_line(char *s)
 
 int is_line(char *s)
 {
-    int i = 0;
-    while(s[i])
+    while(*s)
     {
-        if (s[i] == '\n')
+        if (*s == '\n')
             return (1);
+        s++;
     }
+    // if (*s == '\0')
+    //     return (1);
     return (0);
 }
 
@@ -53,12 +55,16 @@ char    *get_next_line(int fd)
     static char *str;
     char *buff;
     char *line;
+    int rd;
     // char *tmp;
     
-    if (fd < 0)
+    if (fd > 0)
     {
         buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-        read(fd, buff, BUFFER_SIZE);
+        rd = read(fd, buff, BUFFER_SIZE);
+        if (rd == -1)
+            return (NULL);
+        //buff[rd] = '\0';
         str = ft_strdup(buff);
         while (1)
         {
@@ -69,12 +75,15 @@ char    *get_next_line(int fd)
             }
             else
             {
-                read(fd, buff, BUFFER_SIZE);
+                rd = read(fd, buff, BUFFER_SIZE);
+                if (rd == -1 || rd == 0)
+                    return (NULL);
+                //buff[rd] = '\0';
                 str = ft_strjoin(str, buff);
             }
         }
     }
-    //return (NULL);
+    return (NULL);
 }
 /*---------------------------MAIN--------------------------------*/
 int main()
@@ -83,7 +92,7 @@ int main()
     if (fd == -1)
         return 2;
     int i = 0;
-    while (i < 5)
+    while (i < 15)
     {
         printf("%s", get_next_line(fd));
         i++;
