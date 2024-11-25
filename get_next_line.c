@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/25 10:33:59 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:21:49 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,15 @@ char    *get_next_line(int fd)
         rd = read(fd, buff, BUFFER_SIZE);
         if (rd == -1)
             return (NULL);
-        //buff[rd] = '\0';
-        str = ft_strdup(buff);
+        buff[rd] = '\0';
+        if (!str)
+            str = ft_strdup(buff);
         while (1)
         {
             if (is_line(str))
             {
                 line = read_line(str);
+                str = ft_strchr(str, '\n') + 1;
                 return (line);
             }
             else
@@ -78,7 +80,7 @@ char    *get_next_line(int fd)
                 rd = read(fd, buff, BUFFER_SIZE);
                 if (rd == -1 || rd == 0)
                     return (NULL);
-                //buff[rd] = '\0';
+                buff[rd] = '\0';
                 str = ft_strjoin(str, buff);
             }
         }
@@ -175,6 +177,13 @@ int main()
 // {
 //     read(fd, s, 5);
 //     return s;
+// }
+
+// int main()
+// {
+//     int fd = open("test.txt", O_RDONLY, 0777);
+//     char s[10];
+//     printf("%d\n", read(fd, s, 5));
 // }
 
 // char *read_line(char *s)
