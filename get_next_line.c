@@ -6,101 +6,226 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/25 11:21:49 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:10:00 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *read_line(char *s)
-{
-    int len;
-    char *ret;
-    int i;
 
-    if(!s)
-        return (NULL);
-    len = 0;
-    while(s[len] != '\n')
-        len++;
-    ret = malloc(len + 2);
-    if (!ret)
-        return (NULL);
-    i = 0;
-    while(s[i] != '\n')
-    {
-        ret[i] = s[i];
-        i++;
-    }
-    ret[i++] = '\n';
-    ret[i] = '\0';
-    return (ret);
-}
 
-int is_line(char *s)
-{
-    while(*s)
-    {
-        if (*s == '\n')
-            return (1);
-        s++;
-    }
-    // if (*s == '\0')
-    //     return (1);
-    return (0);
-}
 
-char    *get_next_line(int fd)
-{
-    static char *str;
-    char *buff;
-    char *line;
-    int rd;
-    // char *tmp;
+
+
+
+
+
+
+
+
+
+
+
+      if (rd == -1)
+//             return (NULL);
+//         buff[rd] = '\0';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// char *read_line(char *s)
+// {
+//     int len;
+//     char *ret;
+//     int i;
+
+//     if(!s)
+//         return (NULL);
+//     len = 0;
+//     while(s[len] != '\n')
+//         len++;
+//     ret = malloc(len + 2);
+//     if (!ret)
+//         return (NULL);
+//     i = 0;
+//     while(s[i] != '\n')
+//     {
+//         ret[i] = s[i];
+//         i++;
+//     }
+//     ret[i++] = '\n';
+//     ret[i] = '\0';
+//     return (ret);
+// }
+
+// int is_line(char *s)
+// {
+//     while(*s)
+//     {
+//         if (*s == '\n')
+//             return (1);
+//         s++;
+//     }
+//     // if (*s == '\0')
+//     //     return (1);
+//     return (0);
+// }
+
+// char    *get_next_line(int fd)
+// {
+//     static char *str;
+//     char *buff;
+//     char *line;
+//     int rd;
+//     // char *tmp;
     
-    if (fd > 0)
-    {
-        buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-        rd = read(fd, buff, BUFFER_SIZE);
-        if (rd == -1)
-            return (NULL);
-        buff[rd] = '\0';
-        if (!str)
-            str = ft_strdup(buff);
-        while (1)
-        {
-            if (is_line(str))
-            {
-                line = read_line(str);
-                str = ft_strchr(str, '\n') + 1;
-                return (line);
-            }
-            else
-            {
-                rd = read(fd, buff, BUFFER_SIZE);
-                if (rd == -1 || rd == 0)
-                    return (NULL);
-                buff[rd] = '\0';
-                str = ft_strjoin(str, buff);
-            }
-        }
-    }
-    return (NULL);
-}
-/*---------------------------MAIN--------------------------------*/
-int main()
-{
-    int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
-    if (fd == -1)
-        return 2;
-    int i = 0;
-    while (i < 15)
-    {
-        printf("%s", get_next_line(fd));
-        i++;
-    }
-    return (0);
-}
+//     if (fd > 0)
+//     {
+//         buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+//         rd = read(fd, buff, BUFFER_SIZE);
+//         if (rd == -1)
+//             return (NULL);
+//         buff[rd] = '\0';
+//         if (!str)
+//             str = ft_strdup(buff);
+//         while (1)
+//         {
+//             if (is_line(str))
+//             {
+//                 line = read_line(str);
+//                 str = ft_strchr(str, '\n') + 1;
+//                 return (line);
+//             }
+//             else
+//             {
+//                 rd = read(fd, buff, BUFFER_SIZE);
+//                 if (rd == -1 || rd == 0)
+//                     return (NULL);
+//                 buff[rd] = '\0';
+//                 str = ft_strjoin(str, buff);
+//             }
+//         }
+//     }
+//     return (NULL);
+// }
+// /*---------------------------MAIN--------------------------------*/
+// int main()
+// {
+//     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
+//     if (fd == -1)
+//         return 2;
+//     int i = 0;
+//     while (i < 15)
+//     {
+//         printf("%s", get_next_line(fd));
+//         i++;
+//     }
+//     return (0);
+// }
 
 
 
