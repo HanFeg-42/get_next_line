@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/27 08:53:21 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:03:38 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,13 +248,9 @@ char    *get_next_line(int fd)
                 str = ft_strchr(str, '\n') + 1;  
                 return (line);
             }
-            // else if (rd > (ssize_t)ft_strlen(buff))
-            //     return (str);
             else
             {
                 rd = read(fd, buff, BUFFER_SIZE);
-                // if (rd == -1 || rd == 0)
-                //     return (NULL);
                 if (rd == -1 || rd == 0)
                 {
                     if (!rd && str != NULL)
@@ -262,7 +258,7 @@ char    *get_next_line(int fd)
                         tmp = ft_strdup(str);
                         return (free(str), str = NULL, tmp);
                     }
-                    return (free(buff), NULL);
+                    return (free(buff), buff = NULL, NULL);
                 }
                 if (!str)
                     str = ft_strdup(buff);
@@ -274,19 +270,19 @@ char    *get_next_line(int fd)
     return (NULL);
 }
 // /*---------------------------MAIN--------------------------------*/
-int main()
-{
-    int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
-    if (fd == -1)
-        return 2;
-    int i = 0;
-    while (i < 15)
-    {
-        printf("%s", get_next_line(fd));
-        i++;
-    }
-    return (0);
-}
+// int main()
+// {
+//     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
+//     if (fd == -1)
+//         return 2;
+//     int i = 0;
+//     while (i < 15)
+//     {
+//         printf("%s", get_next_line(fd));
+//         i++;
+//     }
+//     return (0);
+// }
 
 
 
