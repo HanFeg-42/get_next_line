@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/26 23:17:06 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/27 08:53:21 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,22 +248,22 @@ char    *get_next_line(int fd)
                 str = ft_strchr(str, '\n') + 1;  
                 return (line);
             }
-            else if (rd > (ssize_t)ft_strlen(buff))
-                return (str);
+            // else if (rd > (ssize_t)ft_strlen(buff))
+            //     return (str);
             else
             {
                 rd = read(fd, buff, BUFFER_SIZE);
-                if (rd == -1 || rd == 0)
-                    return (NULL);
                 // if (rd == -1 || rd == 0)
-                // {
-                //     if (!rd && str != NULL)
-                //     {
-                //         tmp = ft_strdup(str);
-                //         return (free(str), tmp);
-                //     }
-                //     return (free(buff), NULL);
-                // }
+                //     return (NULL);
+                if (rd == -1 || rd == 0)
+                {
+                    if (!rd && str != NULL)
+                    {
+                        tmp = ft_strdup(str);
+                        return (free(str), str = NULL, tmp);
+                    }
+                    return (free(buff), NULL);
+                }
                 if (!str)
                     str = ft_strdup(buff);
                 else
