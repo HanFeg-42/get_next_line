@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/27 14:20:37 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:17:43 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ char    *get_next_line(int fd)
         if (str != NULL && ft_strchr(str, '\n'))
         {
             line = ft_substr(str, 0, ft_strchr(str, '\n') - str + 1);
-            if (!line)
-                return (free(buff), buff = NULL,free(line), line = NULL, NULL);
+            // if (!line)
+            //     return (free(buff), buff = NULL,free(line), line = NULL, NULL);
             return (str = ft_strchr(str, '\n') + 1, free(buff), buff = NULL, line);
         }
         else
@@ -49,14 +49,13 @@ char    *get_next_line(int fd)
             if (!rd || rd == -1)
             {
                 if (!rd && str != NULL)
-                    return (free(tmp), tmp = NULL, free(buff), buff = NULL, str);
+                    return (tmp = ft_strdup(str), str = NULL, free(buff), buff = NULL, tmp);
                 return (free(buff), buff = NULL, NULL);
             }
             buff[rd] = '\0';
             if (!str)
             {
                 str = ft_strdup(buff);
-                tmp = str;
             }
                 
             else
@@ -64,19 +63,19 @@ char    *get_next_line(int fd)
         }
     }
 }
-// int main()
-// {
-//     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
-//     if (fd == -1)
-//         return 2;
-//     int i = 0;
-//     while (i < 15)
-//     {
-//         printf("%s", get_next_line(fd));
-//         i++;
-//     }
-//     return (0);
-// }
+int main()
+{
+    int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
+    if (fd == -1)
+        return 2;
+    int i = 0;
+    while (i < 15)
+    {
+        printf("%s", get_next_line(fd));
+        i++;
+    }
+    return (0);
+}
 
 
 
