@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/27 11:36:45 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:20:37 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,57 @@
 char    *get_next_line(int fd)
 {
     static char *str;
-    char *buff;
-    char *tmp;
+    char (*buff) ,(*line), (*tmp);
+    ssize_t rd;
 
     if(fd < 0)
         return (NULL);
     buff = malloc((BUFFER_SIZE + 1 ) * sizeof(char));
+    if (!buff)
+        return (NULL);
     while (1)
     {
         if (str != NULL && ft_strchr(str, '\n'))
         {
-            tmp = ft_strdup(str);
-            str = ft_strchr(str, '\n') + 1;
-            return (ft_substr(tmp, 0, str - tmp));
+            line = ft_substr(str, 0, ft_strchr(str, '\n') - str + 1);
+            if (!line)
+                return (free(buff), buff = NULL,free(line), line = NULL, NULL);
+            return (str = ft_strchr(str, '\n') + 1, free(buff), buff = NULL, line);
         }
         else
         {
-            
+            rd = read(fd, buff, BUFFER_SIZE);
+            if (!rd || rd == -1)
+            {
+                if (!rd && str != NULL)
+                    return (free(tmp), tmp = NULL, free(buff), buff = NULL, str);
+                return (free(buff), buff = NULL, NULL);
+            }
+            buff[rd] = '\0';
+            if (!str)
+            {
+                str = ft_strdup(buff);
+                tmp = str;
+            }
+                
+            else
+                str = ft_strjoin(str, buff);
         }
     }
-    
 }
-
+// int main()
+// {
+//     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
+//     if (fd == -1)
+//         return 2;
+//     int i = 0;
+//     while (i < 15)
+//     {
+//         printf("%s", get_next_line(fd));
+//         i++;
+//     }
+//     return (0);
+// }
 
 
 
