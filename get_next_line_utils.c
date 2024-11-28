@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:23 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/26 22:13:30 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:37:34 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,10 @@ void	*ft_calloc(size_t nitems, size_t size)
 	a = ft_memset(a, 0, final_size);
 	return (a);
 }
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char			*join;
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	size;
+	unsigned int	(i), (j), (size);
 
 	if (!s1 || !s2)
 		return (NULL);
@@ -125,5 +123,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	join[size] = '\0';
+	free(s1);
 	return (join);
 }

@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/28 11:34:45 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:38:11 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,43 +63,43 @@
     *FT_STRJOIN
 */
 
-// char    *get_next_line(int fd)
-// {
-//     static char *str;
-//     char (*buff) ,(*line), (*tmp);
-//     ssize_t rd;
+char    *get_next_line(int fd)
+{
+    static char *str;
+    char (*buff) ,(*line), (*tmp);
+    ssize_t rd;
 
-//     if(fd < 0 || BUFFER_SIZE < 0)
-//         return (NULL);
-//     buff = malloc((BUFFER_SIZE + 1 ) * sizeof(char));
-//     if (!buff)
-//         return (NULL);
-//     while (1)
-//     {
-//         if (str != NULL && ft_strchr(str, '\n'))
-//         {
-//             line = ft_substr(str, 0, ft_strchr(str, '\n') - str + 1);
-//             if (!line)
-//                 return (free(buff),free(str), str = NULL,  buff = NULL,free(line), line = NULL, NULL);
-//             return (str = ft_strchr(str, '\n') + 1,free(str), str = NULL,  free(buff), buff = NULL, line);
-//         }
-//         else
-//         {
-//             rd = read(fd, buff, BUFFER_SIZE);
-//             if (!rd)
-//             {
-//                 if (rd == 0 && str != NULL)
-//                     return (tmp = ft_strdup(str),free(str), str = NULL, free(buff), buff = NULL, tmp);
-//                 return (free(str), str = NULL, free(buff), buff = NULL, NULL);
-//             }
-//             buff[rd] = '\0';
-//             if (!str)
-//                 str = ft_strdup(buff);
-//             else
-//                 str = ft_strjoin(str, buff);
-//         }
-//     }
-// }
+    if(fd < 0 || BUFFER_SIZE < 0)
+        return (NULL);
+    buff = malloc((BUFFER_SIZE + 1 ) * sizeof(char));
+    if (!buff)
+        return (NULL);
+    while (1)
+    {
+        if (str != NULL && ft_strchr(str, '\n'))
+        {
+            line = ft_substr(str, 0, ft_strchr(str, '\n') - str + 1);
+            if (!line)
+                return (free(buff),  buff = NULL,free(line), line = NULL, NULL);
+            return (str = ft_strchr(str, '\n') + 1,  free(buff), buff = NULL, line);
+        }
+        else
+        {
+            rd = read(fd, buff, BUFFER_SIZE);
+            if (!rd)
+            {
+                if (rd == 0 && str != NULL)
+                    return (tmp = ft_strdup(str),free(str), str = NULL, free(buff), buff = NULL, tmp);
+                return (free(str), str = NULL, free(buff), buff = NULL, NULL);
+            }
+            buff[rd] = '\0';
+            if (!str)
+                str = ft_strdup(buff);
+            else
+                str = ft_strjoin(str, buff);
+        }
+    }
+}
 
 
 

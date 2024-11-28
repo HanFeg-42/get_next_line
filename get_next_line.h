@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:37 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/26 22:57:20 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:37:47 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char    *get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 void	*ft_calloc(size_t nitems, size_t size);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
