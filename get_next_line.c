@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/28 11:17:46 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:34:45 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 /*==========================FIFTH TRY=============================*/
 
-char    *get_next_line(int fd)
-{
-    static char *save;
-    char *buff;
+// char    *get_next_line(int fd)
+// {
+//     static char *save;
+//     char *buff;
     
     
-}
+// }
 
 
 
