@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:37 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/29 10:33:05 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:10:53 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 # include <stdint.h>
 # include <fcntl.h>
 
-//# define BUFFER_SIZE
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1
+#endif
 
 char    *get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);

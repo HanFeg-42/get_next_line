@@ -6,11 +6,74 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/29 14:01:24 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:03:38 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*==========================FIFTH TRY=============================*/
 
@@ -22,21 +85,21 @@ char    *get_next_line(int fd)
     
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
-    buff = malloc(BUFFER_SIZE * sizeof(char));
+    buff = malloc((BUFFER_SIZE * sizeof(char)) + 1); // when i do this (BUFFER_SIZE * sizeof(char)) i tell the compiler cat it to size_t
     if (!buff)
         return (NULL);
     rd = 1;
     while (rd)
     {
         rd = read(fd, buff, BUFFER_SIZE);
-        if (rd == 0 || rd == -1)
-        {
-            free(buff);
-            buff = NULL;
-            if (rd == 0)
-            break;
-            return (NULL);
-        }
+        // if (rd == 0 || rd == -1)
+        // {
+        //     free(buff);
+        //     buff = NULL;
+        //     if (rd == 0)
+        //     break;
+        //     return (NULL);
+        // }
         buff[rd] = '\0';
         if (!save)
             save = ft_strdup(buff);
@@ -47,18 +110,18 @@ char    *get_next_line(int fd)
         if (ft_strchr(save, '\n')) 
             break;
     }
-    if (ft_strchr(save, '\n'))
-    {
-        if (save != NULL)
-        line = ft_substr(save, 0, ft_strchr(save, '\n') - save + 1);
-        if (!line)
-            return (free(buff), buff = NULL, free(line), line = NULL,  NULL);
-        new = ft_strdup(ft_strchr(save, '\n') + 1); 
-        if(!new)
-            return(free(save),save = NULL,free(buff), buff = NULL,NULL);
-        return (free(save),free(buff), buff = NULL,save = ft_strdup(new) , line); exit(0); 
-    }
-    if (!rd && save != NULL)
+    // if (ft_strchr(save, '\n'))
+    // {
+    //     if (save != NULL)
+    //     line = ft_substr(save, 0, ft_strchr(save, '\n') - save + 1);
+    //     if (!line)
+    //         return (free(buff), buff = NULL, free(line), line = NULL,  NULL);
+    //     new = ft_strdup(ft_strchr(save, '\n') + 1); 
+    //     if(!new)
+    //         return(free(save),save = NULL,free(buff), buff = NULL,NULL);
+    //     return (free(save),free(buff), buff = NULL,save = ft_strdup(new) , line);
+    // }
+    // if (!rd && save != NULL)exit(0);
         return (free(buff), buff = NULL, tmp = ft_strdup(save),free(save), save = NULL, tmp);
 }
 
@@ -123,7 +186,87 @@ munmap_chunk(): invalid pointer
 //             line = ft_substr(str, 0, ft_strchr(str, '\n') - str + 1);
 //             if (!line)
 //                 return (free(buff),  buff = NULL,free(line), line = NULL, NULL);
-//             return (str = ft_strchr(str, '\n') + 1,  free(buff), buff = NULL, line);
+//             return (str = ft_strchr(str, '\n') + 1,  free(buffchar *read_line(char *s)
+// {
+//     int len;
+//     char *ret;
+//     int i;
+
+//     if(!s)
+//         return (NULL);
+//     len = 0;
+//     while(s[len] != '\n')
+//         len++;
+//     ret = malloc(len + 2);
+//     if (!ret)
+//         return (NULL);
+//     i = 0;
+//     while(s[i] != '\n')
+//     {
+//         ret[i] = s[i];
+//         i++;
+//     }
+//     ret[i++] = '\n';
+//     ret[i] = '\0';
+//     return (ret);
+// }
+
+// int is_line(char *s)
+// {
+//     if (!s)
+//         return (0);
+//     while(*s)
+//     {
+//         if (*s == '\n')
+//             return (1);
+//         s++;
+//     }
+//     return (0);
+// }
+
+// char    *get_next_line(int fd)
+// {
+//     static char *str;
+//     char *buff;
+//     char *line;
+//     ssize_t rd;
+//     char *tmp;
+    
+//     if (fd > 0)
+//     {
+//         tmp = NULL;
+//         rd = 0;
+//         buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+//         while (1)
+//         {
+//             if (is_line(str))
+//             {
+//                 line = read_line(str);
+//                 str = ft_strchr(str, '\n') + 1;  
+//                 return (free(buff), buff = NULL, line);
+//             }
+//             else
+//             {
+//                 rd = read(fd, buff, BUFFER_SIZE);
+//                 buff[rd] = '\0';
+//                 if (rd == -1 || rd == 0)
+//                 {
+//                     if (!rd && str != NULL)
+//                     {
+//                         tmp = ft_strdup(str);
+//                         return (free(buff), buff = NULL, str = NULL, tmp);
+//                     }
+//                     return (free(buff), buff = NULL, NULL);
+//                 }
+//                 if (!str)
+//                     str = ft_strdup(buff);
+//                 else
+//                     str = ft_strjoin(str, buff);
+//             }
+//         }
+//     }
+//     return (NULL);
+// }), buff = NULL, line);
 //         }
 //         else
 //         {
