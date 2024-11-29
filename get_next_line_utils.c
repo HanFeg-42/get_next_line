@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:23 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/29 19:47:40 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/29 23:33:18 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,32 +76,7 @@ char	*ft_strdup(char *str)
 	//printf("%s\n", ret);
 	return (ret);
 }
-void	*ft_memset(void *str, int c, size_t n)
-{
-	size_t	i;
 
-	i = 0;
-	while (i < n)
-	{
-		*((unsigned char *)str + i) = (unsigned char)c;
-		i++;
-	}
-	return (str);
-}
-void	*ft_calloc(size_t nitems, size_t size)
-{
-	void	*a;
-	size_t	final_size;
-
-	final_size = nitems * size;
-	if (size != 0 && (nitems > SIZE_MAX / size))
-        return (NULL);
-	a = malloc(final_size);
-	if (!a)
-		return (NULL);
-	a = ft_memset(a, 0, final_size);
-	return (a);
-}
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char			*join;
