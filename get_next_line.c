@@ -6,16 +6,75 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/29 18:39:39 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/29 23:15:55 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*==========================FINAL TRY=============================*/
+
+// char    *get_next_line(int fd)
+// {
+    
+// }
 
 
+/*==========================N 6=============================*/
 
+//  total heap usage: 76 allocs, 72 frees, 1,451 bytes allocated
 
+// good output
+
+char    *get_next_line(int fd)
+{
+    static char *save;
+    char (*buff), (*line), (*tmp), (*new);
+    ssize_t rd;
+    
+    if (fd < 0 || BUFFER_SIZE <= 0)
+        return (NULL);
+    buff = malloc((BUFFER_SIZE * sizeof(char)) + 1); // when i do this (BUFFER_SIZE * sizeof(char)) i tell the compiler cat it to size_t
+    if (!buff)
+        return (NULL);
+    while (1)
+    {
+        rd = read(fd, buff, BUFFER_SIZE);
+        if (rd == 0 || rd == -1)
+        {
+            if (rd == 0)
+                break;
+            return (free(buff), buff = NULL, NULL);
+        }
+        buff[rd] = '\0';
+        if (!save)
+            save = ft_strdup(buff);
+        else
+            save = ft_strjoin(save, buff);//printf("%s\n", save);
+        if (!save)
+            return (free(buff), buff = NULL, NULL);
+        if (ft_strchr(save, '\n')) 
+            break;
+    }
+    if (save != NULL && ft_strchr(save, '\n'))
+    {
+        line = ft_substr(save, 0, ft_strchr(save, '\n') - save + 1);
+        if (!line)
+            return (free(save),free(buff), buff = NULL, free(line), line = NULL,  NULL);
+        new = ft_strdup(ft_strchr(save, '\n') + 1); 
+        if(!new)
+            return(free(save),save = NULL,free(buff), buff = NULL,NULL);
+        return (free(save),free(buff), buff = NULL,save = ft_strdup(new),free(new) , line);
+    }
+    if (!rd && save != NULL)
+    {
+        tmp = ft_strdup(save);
+        if(!tmp)
+            return(free(buff), buff = NULL, free(save), save = NULL, NULL);
+        return (free(buff), buff = NULL, free(save), save = NULL, tmp);
+    }
+    return (NULL);
+}
 
 
 
@@ -78,52 +137,57 @@
 /*==========================FIFTH TRY=============================*/
 
 //=======================correct output===========================//
+/*
+valgrind ./a.out 
+==1082911==     in use at exit: 852 bytes in 15 blocks
+==1082911==   total heap usage: 48 allocs, 33 frees, 3,606 bytes allocated
+*/
 
-char    *get_next_line(int fd)
-{
-    static char *save;
-    char (*buff), (*line), (*tmp), (*new);
-    ssize_t rd;
+// char    *get_next_line(int fd)
+// {
+//     static char *save;
+//     char (*buff), (*line), (*tmp), (*new);
+//     ssize_t rd;
     
-    if (fd < 0 || BUFFER_SIZE <= 0)
-        return (NULL);
-    buff = malloc((BUFFER_SIZE * sizeof(char)) + 1); // when i do this (BUFFER_SIZE * sizeof(char)) i tell the compiler cat it to size_t
-    if (!buff)
-        return (NULL);
-    rd = 1;
-    while (rd)
-    {
-        rd = read(fd, buff, BUFFER_SIZE);
-        if (rd == 0 || rd == -1)
-        {
-            if (rd == 0)
-                    break;
-            return (free(buff), buff = NULL, NULL);
-        }
-        buff[rd] = '\0';
-        if (!save)
-            save = ft_strdup(buff);
-        else
-            save = ft_strjoin(save, buff);//printf("%s\n", save);
-            if (!save)
-                return (free(buff), buff = NULL, NULL);
-        if (ft_strchr(save, '\n')) 
-            break;
-    }
-    if (save != NULL && ft_strchr(save, '\n'))
-    {
-        line = ft_substr(save, 0, ft_strchr(save, '\n') - save + 1);
-        if (!line)
-            return (free(buff), buff = NULL, free(line), line = NULL,  NULL);
-        new = ft_strdup(ft_strchr(save, '\n') + 1); 
-        if(!new)
-            return(free(save),save = NULL,free(buff), buff = NULL,NULL);
-        return (free(save),free(buff), buff = NULL,save = ft_strdup(new) , line);
-    }
-    if (!rd && save != NULL)
-        return (free(buff), buff = NULL, tmp = ft_strdup(save),save = NULL, tmp);
-    return (NULL);
-}
+//     if (fd < 0 || BUFFER_SIZE <= 0)
+//         return (NULL);
+//     buff = malloc((BUFFER_SIZE * sizeof(char)) + 1); // when i do this (BUFFER_SIZE * sizeof(char)) i tell the compiler cat it to size_t
+//     if (!buff)
+//         return (NULL);
+//     rd = 1;
+//     while (rd)
+//     {
+//         rd = read(fd, buff, BUFFER_SIZE);
+//         if (rd == 0 || rd == -1)
+//         {
+//             if (rd == 0)
+//                     break;
+//             return (free(buff), buff = NULL, NULL);
+//         }
+//         buff[rd] = '\0';
+//         if (!save)
+//             save = ft_strdup(buff);
+//         else
+//             save = ft_strjoin(save, buff);//printf("%s\n", save);
+//             if (!save)
+//                 return (free(buff), buff = NULL, NULL);
+//         if (ft_strchr(save, '\n')) 
+//             break;
+//     }
+//     if (save != NULL && ft_strchr(save, '\n'))
+//     {
+//         line = ft_substr(save, 0, ft_strchr(save, '\n') - save + 1);
+//         if (!line)
+//             return (free(buff), buff = NULL, free(line), line = NULL,  NULL);
+//         new = ft_strdup(ft_strchr(save, '\n') + 1); 
+//         if(!new)
+//             return(free(save),save = NULL,free(buff), buff = NULL,NULL);
+//         return (free(save),free(buff), buff = NULL,save = ft_strdup(new) , line);
+//     }
+//     if (!rd && save != NULL)
+//         return (free(buff), buff = NULL, tmp = ft_strdup(save),save = NULL, tmp);
+//     return (NULL);
+// }
 
 
 

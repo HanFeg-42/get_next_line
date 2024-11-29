@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:23 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/29 18:15:37 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/29 19:47:40 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	join[size] = '\0';
 	free(s1);
 		s1 = NULL;
-	//printf("%s\n", join);
 	return (join);
 }
