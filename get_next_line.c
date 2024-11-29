@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/29 18:03:38 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:39:39 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@
 
 /*==========================FIFTH TRY=============================*/
 
+//=======================correct output===========================//
+
 char    *get_next_line(int fd)
 {
     static char *save;
@@ -92,37 +94,35 @@ char    *get_next_line(int fd)
     while (rd)
     {
         rd = read(fd, buff, BUFFER_SIZE);
-        // if (rd == 0 || rd == -1)
-        // {
-        //     free(buff);
-        //     buff = NULL;
-        //     if (rd == 0)
-        //     break;
-        //     return (NULL);
-        // }
+        if (rd == 0 || rd == -1)
+        {
+            if (rd == 0)
+                    break;
+            return (free(buff), buff = NULL, NULL);
+        }
         buff[rd] = '\0';
         if (!save)
             save = ft_strdup(buff);
         else
             save = ft_strjoin(save, buff);//printf("%s\n", save);
-        if (!save)
-            return (free(buff), buff = NULL, NULL);
+            if (!save)
+                return (free(buff), buff = NULL, NULL);
         if (ft_strchr(save, '\n')) 
             break;
     }
-    // if (ft_strchr(save, '\n'))
-    // {
-    //     if (save != NULL)
-    //     line = ft_substr(save, 0, ft_strchr(save, '\n') - save + 1);
-    //     if (!line)
-    //         return (free(buff), buff = NULL, free(line), line = NULL,  NULL);
-    //     new = ft_strdup(ft_strchr(save, '\n') + 1); 
-    //     if(!new)
-    //         return(free(save),save = NULL,free(buff), buff = NULL,NULL);
-    //     return (free(save),free(buff), buff = NULL,save = ft_strdup(new) , line);
-    // }
-    // if (!rd && save != NULL)exit(0);
-        return (free(buff), buff = NULL, tmp = ft_strdup(save),free(save), save = NULL, tmp);
+    if (save != NULL && ft_strchr(save, '\n'))
+    {
+        line = ft_substr(save, 0, ft_strchr(save, '\n') - save + 1);
+        if (!line)
+            return (free(buff), buff = NULL, free(line), line = NULL,  NULL);
+        new = ft_strdup(ft_strchr(save, '\n') + 1); 
+        if(!new)
+            return(free(save),save = NULL,free(buff), buff = NULL,NULL);
+        return (free(save),free(buff), buff = NULL,save = ft_strdup(new) , line);
+    }
+    if (!rd && save != NULL)
+        return (free(buff), buff = NULL, tmp = ft_strdup(save),save = NULL, tmp);
+    return (NULL);
 }
 
 

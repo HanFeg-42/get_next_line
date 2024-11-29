@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:23 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/29 13:15:20 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:15:37 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
