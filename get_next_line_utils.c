@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:23 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/28 11:37:34 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:15:20 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ret[i] = '\0';
 	return (ret);
 }
-char	*ft_strdup(const char *str)
+char	*ft_strdup(char *str)
 {
 	char	*ret;
 	int		i;
@@ -71,6 +71,7 @@ char	*ft_strdup(const char *str)
 		i++;
 	}
 	ret[i] = '\0';
+	//printf("%s\n", ret);
 	return (ret);
 }
 void	*ft_memset(void *str, int c, size_t n)
@@ -124,5 +125,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	join[size] = '\0';
 	free(s1);
+		s1 = NULL;
+	//printf("%s\n", join);
 	return (join);
 }

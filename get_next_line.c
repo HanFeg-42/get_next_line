@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/28 11:38:11 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:01:24 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,53 @@
 
 /*==========================FIFTH TRY=============================*/
 
-// char    *get_next_line(int fd)
-// {
-//     static char *save;
-//     char *buff;
+char    *get_next_line(int fd)
+{
+    static char *save;
+    char (*buff), (*line), (*tmp), (*new);
+    ssize_t rd;
     
-    
-// }
-
-
-
+    if (fd < 0 || BUFFER_SIZE <= 0)
+        return (NULL);
+    buff = malloc(BUFFER_SIZE * sizeof(char));
+    if (!buff)
+        return (NULL);
+    rd = 1;
+    while (rd)
+    {
+        rd = read(fd, buff, BUFFER_SIZE);
+        if (rd == 0 || rd == -1)
+        {
+            free(buff);
+            buff = NULL;
+            if (rd == 0)
+            break;
+            return (NULL);
+        }
+        buff[rd] = '\0';
+        if (!save)
+            save = ft_strdup(buff);
+        else
+            save = ft_strjoin(save, buff);//printf("%s\n", save);
+        if (!save)
+            return (free(buff), buff = NULL, NULL);
+        if (ft_strchr(save, '\n')) 
+            break;
+    }
+    if (ft_strchr(save, '\n'))
+    {
+        if (save != NULL)
+        line = ft_substr(save, 0, ft_strchr(save, '\n') - save + 1);
+        if (!line)
+            return (free(buff), buff = NULL, free(line), line = NULL,  NULL);
+        new = ft_strdup(ft_strchr(save, '\n') + 1); 
+        if(!new)
+            return(free(save),save = NULL,free(buff), buff = NULL,NULL);
+        return (free(save),free(buff), buff = NULL,save = ft_strdup(new) , line); exit(0); 
+    }
+    if (!rd && save != NULL)
+        return (free(buff), buff = NULL, tmp = ft_strdup(save),free(save), save = NULL, tmp);
+}
 
 
 
@@ -53,8 +90,13 @@
 
 
 /*==========================FORTH TRY=============================*/
+//==========================kant khdama=====db la=================//
+/*
+munmap_chunk(): invalid pointer
+[1]    235302 IOT instruction (core dumped)  ./a.out
+*/
 
-//use only ==>
+//use oft_strchr(save, '\n')y ==>
 /*
     *FT_STRCHR
     *FT_STRDUP
@@ -63,43 +105,43 @@
     *FT_STRJOIN
 */
 
-char    *get_next_line(int fd)
-{
-    static char *str;
-    char (*buff) ,(*line), (*tmp);
-    ssize_t rd;
+// char    *get_next_line(int fd)
+// {
+//     static char *str;
+//     char (*buff) ,(*line), (*tmp);
+//     ssize_t rd;
 
-    if(fd < 0 || BUFFER_SIZE < 0)
-        return (NULL);
-    buff = malloc((BUFFER_SIZE + 1 ) * sizeof(char));
-    if (!buff)
-        return (NULL);
-    while (1)
-    {
-        if (str != NULL && ft_strchr(str, '\n'))
-        {
-            line = ft_substr(str, 0, ft_strchr(str, '\n') - str + 1);
-            if (!line)
-                return (free(buff),  buff = NULL,free(line), line = NULL, NULL);
-            return (str = ft_strchr(str, '\n') + 1,  free(buff), buff = NULL, line);
-        }
-        else
-        {
-            rd = read(fd, buff, BUFFER_SIZE);
-            if (!rd)
-            {
-                if (rd == 0 && str != NULL)
-                    return (tmp = ft_strdup(str),free(str), str = NULL, free(buff), buff = NULL, tmp);
-                return (free(str), str = NULL, free(buff), buff = NULL, NULL);
-            }
-            buff[rd] = '\0';
-            if (!str)
-                str = ft_strdup(buff);
-            else
-                str = ft_strjoin(str, buff);
-        }
-    }
-}
+//     if(fd < 0 || BUFFER_SIZE < 0)
+//         return (NULL);
+//     buff = malloc((BUFFER_SIZE + 1 ) * sizeof(char));
+//     if (!buff)
+//         return (NULL);
+//     while (1)
+//     {
+//         if (str != NULL && ft_strchr(str, '\n'))
+//         {
+//             line = ft_substr(str, 0, ft_strchr(str, '\n') - str + 1);
+//             if (!line)
+//                 return (free(buff),  buff = NULL,free(line), line = NULL, NULL);
+//             return (str = ft_strchr(str, '\n') + 1,  free(buff), buff = NULL, line);
+//         }
+//         else
+//         {
+//             rd = read(fd, buff, BUFFER_SIZE);
+//             if (!rd)
+//             {
+//                 if (rd == 0 && str != NULL)
+//                     return (tmp = ft_strdup(str),free(str), str = NULL, free(buff), buff = NULL, tmp);
+//                 return (free(str), str = NULL, free(buff), buff = NULL, NULL);
+//             }
+//             buff[rd] = '\0';
+//             if (!str)
+//                 str = ft_strdup(buff);
+//             else
+//                 str = ft_strjoin(str, buff);
+//         }
+//     }
+// }
 
 
 
@@ -180,7 +222,7 @@ char    *get_next_line(int fd)
 /*---------------------------MAIN--------------------------------*/
 // int main()
 // {
-//     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
+//     int fd = open("file.txt", O_CREAT | O_RDOft_strchr(save, '\n')Y, 0640);
 //     if (fd == -1)
 //         return 2;
 //     int i = 0;
@@ -352,7 +394,6 @@ char    *get_next_line(int fd)
 //                     str = ft_strdup(buff);
 //                 else
 //                     str = ft_strjoin(str, buff);
-                
 //             }
 //         }
 //     }
@@ -451,7 +492,7 @@ char    *get_next_line(int fd)
 // }
 // int main()
 // {
-//     int fd = open("test.txt", O_RDONLY, 0777);
+//     int fd = open("test.txt", O_RDOft_strchr(save, '\n')Y, 0777);
 //     char s[10];
 //     printf("%d\n", read(fd, s, 5));
 // }
@@ -508,7 +549,7 @@ char    *get_next_line(int fd)
 // /*---------------------------MAIN--------------------------------*/
 // int main()
 // {
-//     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
+//     int fd = open("file.txt", O_CREAT | O_RDOft_strchr(save, '\n')Y, 0640);
 //     if (fd == -1)
 //         return 2;
 //     int i = 0;
@@ -522,7 +563,7 @@ char    *get_next_line(int fd)
 
 // int main()
 // {
-//     int fd = open("test.txt", O_CREAT | O_RDONLY, 0640);
+//     int fd = open("test.txt", O_CREAT | O_RDOft_strchr(save, '\n')Y, 0640);
 //     if (fd == -1)
 //         return 2;
 //     char *s = calloc(20, sizeof(char));
@@ -536,7 +577,7 @@ char    *get_next_line(int fd)
 // int main()
 // {
 //     char *str = malloc(10);
-//     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
+//     int fd = open("file.txt", O_CREAT | O_RDOft_strchr(save, '\n')Y, 0640);
 //     if (fd == -1)
 //         return 2;
 //     int i = 5;
