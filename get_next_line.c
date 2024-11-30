@@ -6,38 +6,43 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/29 23:41:24 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/30 13:17:39 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 /*==========================FINAL TRY=============================*/
-char    *read_line(char *save, ssize_t rd)
+
+//void    fill_in_save()
+
+char    *test(char **save)
 {
-    char (*line), (*tmp), (*new);
+    char *tmp;
+    tmp = ft_strdup(*save);
+    if(!tmp)
+        return( *save = NULL, NULL);
+    return (free(*save), *save = NULL, tmp);
+}
+char    *read_line(char **save)
+{
+    char (*line), (*new);
     
-    if (save != NULL && ft_strchr(save, '\n'))
-    {
-        line = ft_substr(save, 0, ft_strchr(save, '\n') - save + 1);
-        if (!line)
-            return (free(line), line = NULL,  NULL);
-        new = ft_strdup(ft_strchr(save, '\n') + 1); 
-        if(!new)
-            return(free(save), save = NULL, NULL);
-        return (free(save), save = ft_strdup(new), free(new) , line);
-    }
-    if (!rd && save != NULL)
-    {
-        tmp = ft_strdup(save);
-        if(!tmp)
-            return( save = NULL, NULL);
-        return ( free(save), save = NULL, tmp);
-    }
+    line = ft_substr(*save, 0, ft_strchr(*save, '\n') - *save + 1);
+    if (!line)
+        return (free(line), line = NULL,  NULL);
+    new = ft_strdup(ft_strchr(*save, '\n') + 1); 
+    if(!new)
+        return(free(*save),free(line), *save = NULL, NULL);
+    free(*save);
+    *save = ft_strdup(new);
+    if (!(*save))
+        return (free(new), free(line),*save = NULL, NULL);
+    return (free(new), line);
 }
 char    *get_next_line(int fd)
 {
-        static char *save;
+    static char *save;
     char (*buff);
     ssize_t rd;
     
@@ -65,7 +70,11 @@ char    *get_next_line(int fd)
         if (ft_strchr(save, '\n')) 
             break;
     }
-    return (free(buff), buff = NULL, read_line(save, rd));
+    free (buff);
+    if (save != NULL && ft_strchr(save, '\n'))
+        return (read_line(&save));
+    if (!rd && save != NULL)
+        return (test(&save));
 }
 
 
