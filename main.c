@@ -9,17 +9,16 @@
 int main()
 {
     int fd = open("file.txt", O_CREAT | O_RDONLY, 0640);
-    char *s;
+    char *s= get_next_line(fd);
     if (fd == -1)
         return 2;
     int i = 0;
     while (i < 15)
-    {
-        s = get_next_line(fd);
+    {i++;
         printf("%s", s);
-        i++;
         free(s);
-        s = NULL;
+        s= get_next_line(fd);
     }
+  //  system("leaks a.out");
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/30 13:17:39 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/11/30 14:45:24 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,30 @@
 
 /*==========================FINAL TRY=============================*/
 
-//void    fill_in_save()
+void    fill_in_save(int fd, ssize_t *rd, char **save, char **buff)
+{
+    while (1)
+    {
+        *rd = read(fd, *buff, BUFFER_SIZE);
+        if (*rd == 0 || *rd == -1)
+            break;
+        // {
+        //     if (*rd == 0)
+        //         break;
+        //     return (free(*buff), *buff = NULL, NULL);
+        // }
+        (*buff)[*rd] = '\0';
+        if (!(*save))
+            *save = ft_strdup(*buff);
+        else
+            *save = ft_strjoin(*save, *buff);//printf("%s\n", save);
+        if (!(*save))
+            break;
+            // return (free(*buff), *buff = NULL, NULL);
+        if (ft_strchr(*save, '\n')) 
+            break;
+    }
+}
 
 char    *test(char **save)
 {
@@ -26,19 +49,30 @@ char    *test(char **save)
 }
 char    *read_line(char **save)
 {
-    char (*line), (*new);
+    char (*line), (*new), (*tmp);
     
-    line = ft_substr(*save, 0, ft_strchr(*save, '\n') - *save + 1);
-    if (!line)
-        return (free(line), line = NULL,  NULL);
-    new = ft_strdup(ft_strchr(*save, '\n') + 1); 
-    if(!new)
-        return(free(*save),free(line), *save = NULL, NULL);
-    free(*save);
-    *save = ft_strdup(new);
-    if (!(*save))
-        return (free(new), free(line),*save = NULL, NULL);
-    return (free(new), line);
+    // if (save != NULL && ft_strchr(save, '\n'))
+    // {
+        line = ft_substr(*save, 0, ft_strchr(*save, '\n') - *save + 1);
+        if (!line)
+            return (free(line), line = NULL,  NULL);
+        new = ft_strdup(ft_strchr(*save, '\n') + 1); 
+        if(!new)
+            return(free(*save),free(line), *save = NULL, NULL);
+        free(*save);
+        *save = ft_strdup(new);
+        if (!(*save))
+            return (free(new), free(line),*save = NULL, NULL);
+        return (free(new), line);
+    // }
+    // else if (!rd && save != NULL)
+    // {
+    //     tmp = ft_strdup(*save);
+    //     if(!tmp)
+    //         return( *save = NULL, NULL);
+    //     return (free(*save), *save = NULL, tmp);
+    // }
+
 }
 char    *get_next_line(int fd)
 {
@@ -51,30 +85,32 @@ char    *get_next_line(int fd)
     buff = malloc((BUFFER_SIZE * sizeof(char)) + 1); // when i do this (BUFFER_SIZE * sizeof(char)) i tell the compiler cat it to size_t
     if (!buff)
         return (NULL);
-    while (1)
-    {
-        rd = read(fd, buff, BUFFER_SIZE);
-        if (rd == 0 || rd == -1)
-        {
-            if (rd == 0)
-                break;
-            return (free(buff), buff = NULL, NULL);
-        }
-        buff[rd] = '\0';
-        if (!save)
-            save = ft_strdup(buff);
-        else
-            save = ft_strjoin(save, buff);//printf("%s\n", save);
-        if (!save)
-            return (free(buff), buff = NULL, NULL);
-        if (ft_strchr(save, '\n')) 
-            break;
-    }
+    fill_in_save(fd, &rd, &save, &buff);
+    // while (1)
+    // {
+    //     rd = read(fd, buff, BUFFER_SIZE);
+    //     if (rd == 0 || rd == -1)
+    //     {
+    //         if (rd == 0)
+    //             break;
+    //         return (free(buff), buff = NULL, NULL);
+    //     }
+    //     buff[rd] = '\0';
+    //     if (!save)
+    //         save = ft_strdup(buff);
+    //     else
+    //         save = ft_strjoin(save, buff);//printf("%s\n", save);
+    //     // if (!save)
+    //     //     return (free(buff), buff = NULL, NULL);
+    //     if (ft_strchr(save, '\n')) 
+    //         break;
+    // }
     free (buff);
     if (save != NULL && ft_strchr(save, '\n'))
         return (read_line(&save));
-    if (!rd && save != NULL)
+    else if (!rd && save != NULL)
         return (test(&save));
+    return (NULL);
 }
 
 
