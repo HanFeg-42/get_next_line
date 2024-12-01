@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:28 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/12/01 17:33:45 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:38:57 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ char	*read_line(char **save, ssize_t rd)
 	{
 		line = ft_substr(*save, 0, nl_ptr - *save + 1);
 		new = ft_strdup(nl_ptr + 1);
-		free(*save);
-		*save = ft_strdup(new);
-		return (free(new), line);
+		return (free(*save), *save = ft_strdup(new), free(new), line);
 	}
 	else if (!rd && save != NULL)
 	{
