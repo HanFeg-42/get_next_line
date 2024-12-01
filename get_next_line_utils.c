@@ -6,11 +6,87 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:23 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/12/01 09:58:25 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/12/01 13:29:42 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+// char	*ft_strjoin(char const *s1, char const *s2)
+// {
+// 	int		sizetotal;
+// 	char	*res;
+// 	int		i;
+// 	int		j;
+
+// 	i = 0;
+// 	sizetotal = ft_strlen(s1) + ft_strlen(s2);
+// 	res = malloc(sizeof(char) * (sizetotal + 1));
+// 	if (!res || !s1 || !s2)
+// 		return (NULL);
+// 	while (s1[i] != 0)
+// 	{
+// 		res[i] = s1[i];
+// 		i++;
+// 	}
+// 	j = 0;
+// 	while (s2[j] != 0)
+// 	{
+// 		res[i] = s2[j];
+// 		i++;
+// 		j++;
+// 	}
+// 	res[sizetotal] = 0;
+// 	return (res);
+// }
+
+// char	*ft_strchr(const char *string, int searchedChar )
+// {
+// 	char	*str;
+
+// 	str = (char *)string;
+// 	while (*str != searchedChar && *str != 0)
+// 		str++;
+// 	if (*str == searchedChar)
+// 		return (str);
+// 	else
+// 		return (NULL);
+// }
+
+// void	ft_bzero(void *s, size_t n)
+// {
+// 	char	*str;
+// 	size_t	i;
+
+// 	str = (char *)s;
+// 	i = 0;
+// 	while (i < n)
+// 	{
+// 		str[i] = '\0';
+// 		i++;
+// 	}
+// }
+
+// void	*ft_calloc(size_t elementCount, size_t elementSize)
+// {
+// 	char	*res;
+
+// 	res = malloc(elementSize * elementCount);
+// 	if (!res)
+// 		return (NULL);
+// 	ft_bzero(res, elementSize * elementCount);
+// 	return (res);
+// }
+
+// size_t	ft_strlen(const char *theString)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (theString[i])
+// 		i++;
+// 	return (i);
+// }
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -105,4 +181,22 @@ char	*ft_strjoin(char *s1, char *s2)
 	free(s1);
 	s1 = NULL;
 	return (join);
+}
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+	size_t	src_size;
+
+	src_size = ft_strlen(src);
+	i = 0;
+	if (size != 0)
+	{
+		while (i < size - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (src_size);
 }
