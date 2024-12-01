@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:23 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/12/01 17:25:05 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:32:36 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,22 +105,4 @@ char	*ft_strjoin(char *s1, char *s2)
 	free(s1);
 	s1 = NULL;
 	return (join);
-}
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	i;
-	size_t	src_size;
-
-	src_size = ft_strlen(src);
-	i = 0;
-	if (size != 0)
-	{
-		while (i < size - 1 && src[i])
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (src_size);
 }
