@@ -6,7 +6,7 @@
 /*   By: hfegrach <hfegrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 11:39:23 by hfegrach          #+#    #+#             */
-/*   Updated: 2024/11/30 15:24:30 by hfegrach         ###   ########.fr       */
+/*   Updated: 2024/12/01 09:57:03 by hfegrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)s);
 	return (NULL);
 }
+
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
@@ -31,32 +32,7 @@ size_t	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
-void	*ft_memset(void *str, int c, size_t n)
-{
-	size_t	i;
 
-	i = 0;
-	while (i < n)
-	{
-		*((unsigned char *)str + i) = (unsigned char)c;
-		i++;
-	}
-	return (str);
-}
-void	*ft_calloc(size_t nitems, size_t size)
-{
-	void	*a;
-	size_t	final_size;
-
-	final_size = nitems * size;
-	if (size != 0 && (nitems > SIZE_MAX / size))
-        return (NULL);
-	a = malloc(final_size);
-	if (!a)
-		return (NULL);
-	a = ft_memset(a, 0, final_size);
-	return (a);
-}
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*ret;
@@ -83,6 +59,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ret[i] = '\0';
 	return (ret);
 }
+
 char	*ft_strdup(char *str)
 {
 	char	*ret;
@@ -98,15 +75,14 @@ char	*ft_strdup(char *str)
 		i++;
 	}
 	ret[i] = '\0';
-	//printf("%s\n", ret);
 	return (ret);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char			*join;
-	unsigned int	(i), (j), (size);
+	char	*join;
 
+	unsigned int (i), (j), (size);
 	if (!s1 || !s2)
 		return (NULL);
 	size = (ft_strlen(s1) + ft_strlen(s2));
@@ -127,6 +103,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	join[size] = '\0';
 	free(s1);
-		s1 = NULL;
+	s1 = NULL;
 	return (join);
 }

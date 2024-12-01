@@ -21,6 +21,6 @@ int main()
         free(s);
         
     }
-  //  system("leaks a.out");
+    //system("leaks a.out");
     return (0);
 }
