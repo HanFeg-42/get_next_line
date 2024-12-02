@@ -14,7 +14,7 @@ int main()
     // write(fd, "nouss is\nvery\nbeautiful\nwa chokran", 34);
     // close(fd);
     // fd = open("nos.txt", O_CREAT | O_RDWR, 0640);
-
+// fd = -60000;
     char *s=get_next_line(fd);
     // if (fd == -1)
     //     return 2;
